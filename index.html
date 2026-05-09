@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inVRsion — Выездная VR | Москва и МО</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root{--bg:#0a0820;--accent:#a259ff;--gold:#ffd700;--text:#fff;--muted:#b0b0d0;--glass:rgba(255,255,255,0.06);--radius:18px}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+        .parallax-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 20% 10%,rgba(162,89,255,0.22),transparent 34%),radial-gradient(circle at 80% 20%,rgba(72,219,251,0.12),transparent 30%),linear-gradient(135deg,#0f0c29,#302b63 50%,#24243e)}
+        .container{max-width:1100px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+        .section-title{text-align:center;font-size:1.9rem;margin-bottom:15px;padding-bottom:15px;position:relative}
+        .section-title::after{content:'';display:block;width:56px;height:3px;background:var(--accent);margin:10px auto 0;border-radius:2px}
+        .section-subtitle{text-align:center;color:var(--muted);margin-bottom:28px}
+        section{padding:55px 0}
+        .bg-glass{background:rgba(10,8,32,0.7);backdrop-filter:blur(7px)}
+
+        .header{position:sticky;top:0;z-index:100;padding:14px 0;background:rgba(10,8,32,0.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(162,89,255,0.28)}
+        .nav-container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+        .logo{font-size:1.5rem;font-weight:800;display:flex;align-items:center;gap:8px}
+        .logo i{color:var(--accent);font-size:1.7rem}
+        .header-contacts{display:flex;gap:10px;align-items:center}
+        .vk-link,.phone-link{color:#fff;text-decoration:none;font-weight:600;padding:8px 16px;border-radius:30px;transition:0.3s;font-size:0.85rem}
+        .vk-link{background:rgba(0,119,255,0.3)}.vk-link:hover{background:#0077ff}
+        .phone-link{background:rgba(162,89,255,0.2)}.phone-link:hover{background:var(--accent)}
+
+        .hero{padding:70px 0 50px;text-align:center;background:rgba(10,8,32,0.48);backdrop-filter:blur(3px)}
+        .hero-badge{display:inline-block;background:rgba(162,89,255,0.26);border:1px solid var(--accent);padding:7px 20px;border-radius:20px;font-size:0.82rem;letter-spacing:2px;margin-bottom:18px}
+        .hero-title{font-size:2.6rem;font-weight:900;margin-bottom:14px;text-transform:uppercase}
+        .hero-subtitle{font-size:1.1rem;color:var(--muted);max-width:680px;margin:0 auto 18px}
+        .hero-locations{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:28px}
+        .hero-locations span{background:rgba(255,255,255,0.08);border:1px solid rgba(162,89,255,0.35);padding:7px 16px;border-radius:20px;font-size:0.84rem;color:#e0d0ff}
+        .hero-locations span i{margin-right:6px;color:var(--accent)}
+        .hero-buttons{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+        .btn{padding:13px 30px;border-radius:40px;text-decoration:none;font-weight:700;transition:0.3s;display:inline-block;border:0;cursor:pointer;font-size:0.95rem}
+        .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#8b3bd4;transform:translateY(-2px);box-shadow:0 8px 22px rgba(162,89,255,0.35)}
+        .btn-outline{border:2px solid #fff;color:#fff;background:transparent}.btn-outline:hover{background:#fff;color:var(--bg)}
+        .discounts-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+        .discount-block{background:rgba(0,0,0,0.5);backdrop-filter:blur(5px);padding:16px 22px;border-radius:15px;text-align:center}
+        .birthday-block{border:1px solid var(--gold)}
+        .discount-badge{color:var(--gold);font-weight:700;font-size:1rem}
+        .timer{font-family:monospace;font-size:1.3rem;font-weight:700;margin-top:6px}
+
+        .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+        .video-card{background:var(--glass);border-radius:var(--radius);overflow:hidden}
+        .video-card video{width:100%;display:block;background:#000;border-radius:var(--radius) var(--radius) 0 0}
+        .video-card p{padding:12px;text-align:center;font-weight:600;color:var(--muted)}
+
+        .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:18px}
+        .step-card{background:var(--glass);padding:22px 14px;border-radius:var(--radius);text-align:center}
+        .step-num{color:var(--accent);font-weight:700;font-size:0.72rem;margin-bottom:6px}
+        .step-icon{font-size:1.8rem;color:var(--accent);margin-bottom:8px}
+        .step-card h4{font-size:0.95rem;margin-bottom:4px}.step-card p{font-size:0.78rem;color:var(--muted)}
+    </style>
+</head>
+<body>
+    <div class="parallax-bg"></div>
+
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo"><i class="fas fa-vr-cardboard"></i> inVRsion</div>
+            <div class="header-contacts">
+                <a href="https://vk.com/petyakarpov" target="_blank" class="vk-link"><i class="fab fa-vk"></i> ВКонтакте</a>
+                <a href="tel:89680323290" class="phone-link"><i class="fas fa-phone-alt"></i> 8 968 032 32 90</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">BIRTHDAYS & CORPORATE PARTY</div>
+            <h1 class="hero-title">Выездные VR-мероприятия</h1>
+            <p class="hero-subtitle">Превращаем дни рождения и корпоративы в незабываемое путешествие в виртуальную реальность. Мы переносим магию VR прямо к вам.</p>
+            <div class="hero-locations">
+                <span><i class="fas fa-building"></i>Корпоративы</span>
+                <span><i class="fas fa-users"></i>Тимбилдинги</span>
+                <span><i class="fas fa-tree"></i>Загородные базы</span>
+                <span><i class="fas fa-campground"></i>Детские лагеря</span>
+                <span><i class="fas fa-hotel"></i>Парк-отели</span>
+                <span><i class="fas fa-home"></i>Загородные дома</span>
+            </div>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">Смотреть тарифы</a>
+                <a href="#video-section" class="btn btn-outline">Посмотреть видео</a>
+            </div>
+            <div class="discounts-row">
+                <div class="discount-block"><span class="discount-badge">Скидка 10% до конца недели!</span><div class="timer" id="timer">Загружаем...</div></div>
+                <div class="discount-block birthday-block"><span class="discount-badge"><i class="fas fa-birthday-cake"></i> Имениннику скидка 20%!</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-section">
+        <div class="container">
+            <h2 class="section-title">Как это выглядит</h2>
+            <p class="section-subtitle">Посмотрите короткие видео с наших мероприятий</p>
+            <div class="video-grid">
+                <div class="video-card"><video controls poster="https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13"><source src="https://yandex.ru/video/touch/preview/4027062555452746805" type="video/mp4"></video><p>VR-тимбилдинг</p></div>
+                <div class="video-card"><video controls poster="https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13"><source src="https://yandex.ru/video/touch/preview/18415731838572718487" type="video/mp4"></video><p>Командный VR-тимбилдинг</p></div>
+                <div class="video-card"><video controls poster="https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13"><source src="https://yandex.ru/video/touch/preview/520924905909746063" type="video/mp4"></video><p>Детский VR-праздник</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-glass" id="steps">
+        <div class="container"><h2 class="section-title">Как проходит мероприятие?</h2><div class="steps-grid" id="stepsGrid"></div></div>
+    </section><style>
+    .why-best-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+    .why-best-item{display:flex;align-items:center;gap:10px;background:rgba(162,89,255,0.1);padding:14px 18px;border-radius:12px;font-size:0.9rem}
+    .why-best-item i{color:var(--accent);font-size:1.2rem}
+    .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .why-card{background:var(--glass);border-radius:var(--radius);overflow:hidden;text-align:center}
+    .why-card img{width:100%;height:170px;object-fit:cover}
+    .why-card h3{padding:12px 10px 4px;font-size:1.05rem;color:var(--accent)}
+    .why-card p{padding:0 14px 18px;font-size:0.85rem;color:var(--muted)}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:18px}
+    .service-card{background:var(--glass);padding:24px 14px;border-radius:var(--radius);text-align:center;cursor:pointer;transition:0.3s;position:relative;border:1px solid transparent}
+    .service-card:hover{border-color:var(--accent);background:rgba(162,89,255,0.16);transform:translateY(-3px)}
+    .card-badge{position:absolute;top:10px;right:10px;background:var(--gold);color:#000;font-size:0.7rem;padding:3px 10px;border-radius:10px;font-weight:700}
+    .service-card h4{font-size:1.1rem;margin-bottom:4px}
+    .service-card p{color:var(--muted);font-size:0.82rem;margin-bottom:10px}
+    .price-block span{display:block;font-size:1rem;font-weight:700}.price-block small{color:#999;font-size:0.7rem}
+    .calculator{background:var(--glass);padding:26px;border-radius:var(--radius);max-width:480px;margin:0 auto}
+    .calc-row{display:flex;justify-content:space-between;align-items:center;margin:11px 0}
+    .calc-row input,.calc-row select{width:90px;padding:9px;border-radius:8px;border:1px solid var(--accent);background:#1a1733;color:#fff;text-align:center}
+    .calc-total{text-align:center;font-size:1.8rem;font-weight:800;color:var(--gold);margin:18px 0}
+    .calc-note{color:#999;text-align:center;font-size:0.82rem}
+    .wheel-container{background:var(--glass);padding:34px;border-radius:24px;display:inline-block;backdrop-filter:blur(8px)}
+    .wheel-container canvas{display:block;margin:0 auto 16px;border-radius:50%;box-shadow:0 0 36px rgba(162,89,255,0.45)}
+    .wheel-result{font-size:1.3rem;color:var(--gold);font-weight:700;margin-top:16px;min-height:28px}
+    .wheel-contact{display:none;margin-top:14px;padding:14px;background:rgba(162,89,255,0.14);border-radius:14px}
+    .wheel-contact.show{display:block}
+    .games-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+    .game-tag{background:var(--glass);padding:9px 18px;border-radius:30px;font-size:0.85rem}
+</style>
+
+<section><div class="container"><h2 class="section-title">Почему мы лучшее решение?</h2><div class="why-best-grid" id="benefitsGrid"></div></div></section>
+
+<section class="bg-glass"><div class="container"><h2 class="section-title">Почему выездные VR-мероприятия — лучший выбор?</h2>
+    <div class="why-grid" id="whyGrid"></div></div>
+</section>
+
+<section id="services"><div class="container"><h2 class="section-title">Тарифы</h2><p class="section-subtitle">Имениннику скидка 20%! Нажмите, чтобы узнать подробности.</p><div class="services-grid" id="servicesGrid"></div></div></section>
+
+<section class="bg-glass"><div class="container"><h2 class="section-title">Рассчитать стоимость</h2>
+    <div class="calculator">
+        <div class="calc-row"><label>Человек</label><input type="number" id="people" value="4" min="1" max="50"></div>
+        <div class="calc-row"><label>Часы</label><input type="number" id="hours" value="2" min="1" max="8"></div>
+        <div class="calc-row"><label>VR-очки</label><input type="number" id="stations" value="2" min="1" max="10"></div>
+        <div class="calc-row"><label>Тип дня</label><select id="dayType"><option value="weekday">Будни</option><option value="weekend">Выходной</option></select></div>
+        <div class="calc-total">Итого: <span id="totalPrice">0</span> ₽</div>
+        <p class="calc-note">*Примерная стоимость. График: 08:00–18:00</p>
+    </div>
+    <p style="text-align:center;margin-top:16px;">Для точного расчёта: <a href="tel:89680323290" style="color:var(--accent);text-decoration:none;font-weight:700;">8 968 032 32 90</a></p>
+</div></section>
+
+<section style="text-align:center"><div class="container"><h2 class="section-title">Колесо фортуны</h2><p class="section-subtitle">Испытай удачу и получи приз!</p>
+    <div class="wheel-container"><canvas id="wheelCanvas" width="360" height="360"></canvas>
+        <button class="btn btn-primary" id="spinBtn">🎰 Крутить барабан</button>
+        <p class="wheel-result" id="wheelResult"></p>
+        <div class="wheel-contact" id="wheelContact">
+            <p><strong>Свяжитесь, чтобы забрать приз и подобрать пакет:</strong></p>
+            <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+                <a href="tel:89680323290" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Позвонить</a>
+                <a href="https://vk.com/petyakarpov" target="_blank" class="btn btn-outline"><i class="fab fa-vk"></i> ВКонтакте</a>
+            </div>
+        </div>
+    </div>
+</div></section>
+
+<section class="bg-glass"><div class="container"><h2 class="section-title">Топ-15 игр</h2><div class="games-grid" id="gamesGrid"></div></div></section>    <style>
+        .cert-grid{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+        .cert-card{background:var(--glass);padding:22px 18px;border-radius:var(--radius);text-align:center;cursor:pointer;min-width:150px;transition:0.3s;border:1px solid transparent}
+        .cert-card:hover{border-color:var(--accent);background:rgba(162,89,255,0.16)}
+        .cert-price{font-size:1.6rem;font-weight:800;color:var(--accent);display:block}
+        .cert-icon{font-size:1.8rem;color:var(--gold);display:block;margin-bottom:8px}
+        .faq-item{background:var(--glass);margin-bottom:8px;border-radius:12px;overflow:hidden}
+        .faq-question{width:100%;padding:16px 20px;text-align:left;background:0;border:0;color:#fff;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+        .faq-answer{display:none;padding:0 20px 14px;color:#d0d0e0}.faq-answer.show{display:block}
+        .footer{padding:28px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.08);margin-top:40px}
+        .social-links{display:flex;justify-content:center;gap:14px;margin-top:12px}
+        .social-icon{color:#fff;text-decoration:none;background:var(--glass);padding:10px 20px;border-radius:30px;font-weight:600}
+        .vk:hover{background:#0077ff}.phone:hover{background:var(--accent)}
+
+        .modal-overlay{display:none;position:fixed;inset:0;z-index:1000;justify-content:center;align-items:center;padding:20px;background:rgba(0,0,0,0.84)}
+        .modal-overlay.show{display:flex}
+        .modal-content{background:#1a1040;padding:34px 28px;border-radius:20px;max-width:460px;width:100%;position:relative;border:2px solid var(--accent);text-align:center}
+        .modal-close{position:absolute;top:10px;right:16px;border:0;background:0;color:#fff;font-size:1.8rem;cursor:pointer}
+        .modal-content h3{color:var(--accent);margin-bottom:12px}
+        .modal-content input{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid rgba(162,89,255,0.4);background:#0a0820;color:#fff;font-size:0.95rem}
+        .modal-content label{display:block;text-align:left;margin-top:8px;font-size:0.85rem;color:var(--muted)}
+    </style>
+
+    <section class="bg-glass"><div class="container"><h2 class="section-title">Подарочные сертификаты</h2><div class="cert-grid" id="certGrid"></div></div></section>
+    <section><div class="container"><h2 class="section-title">Вопросы и ответы</h2><div id="faqList"></div></div></section>
+
+    <footer class="footer"><div class="container"><p>© 2026 inVRsion. Выездная VR. Москва и МО.</p>
+        <div class="social-links">
+            <a href="https://vk.com/petyakarpov" target="_blank" class="social-icon vk"><i class="fab fa-vk"></i> ВКонтакте</a>
+            <a href="tel:89680323290" class="social-icon phone"><i class="fas fa-phone-alt"></i> Позвонить</a>
+        </div>
+    </div></footer>
+
+    <div id="modalRoot"></div>
+
+    <script>
+        const VK = "https://vk.com/petyakarpov";
+        const PHONE = "89680323290";
+
+        const steps=[["01","fa-paper-plane","Заявка","Оставляете заявку"],["02","fa-comments","Согласование","Согласовываем детали"],["03","fa-truck","Выезд","Приезжаем"],["04","fa-tools","Установка","Настраиваем VR-зону"],["05","fa-gamepad","Запуск игр","Инструктируем"],["06","fa-camera","Завершение","Фиксируем эмоции"]];
+        const benefits=[["fa-rocket","Прорывной формат"],["fa-truck-moving","VR-зоны в любом месте"],["fa-gem","Премиальный сервис"],["fa-gamepad","Игры на любой вкус"],["fa-paint-brush","Брендированные зоны"],["fa-graduation-cap","Образовательные программы"],["fa-smile","Яркие эмоции"]];
+        const whyCards=[{img:"https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13",title:"Абсолютная свобода",text:"Проводим в любом месте: дом, офис, лофт, парк."},{img:"https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13",title:"Минимум забот",text:"Вся техника — на нас."},{img:"https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13",title:"Для всех возрастов",text:"Дети от 4 лет и взрослые."},{img:"https://avatars.mds.yandex.net/i?id=0e8d361a305ede86233c350cbb695ffb_l-5235191-images-thumbs&n=13",title:"Эффектный стиль",text:"Современное оформление."}];
+        const services=[{id:"modal1",badge:"Хит",title:"Минимальный",sub:"До 6 игроков / 1.5 ч",prices:["16 900 ₽ — будни","23 900 ₽ — выходной"]},{id:"modal2",title:"Командный",sub:"До 12 игроков / 3 ч",prices:["35 000 ₽ — будни","45 000 ₽ — выходной"]},{id:"modal3",title:"Детская галактика",sub:"До 8 детей / 2 ч",prices:["13 900 ₽ — будни","19 900 ₽ — выходной"]},{id:"modal4",title:"Кинотеатр 360°",sub:"До 10 чел / 1 ч",prices:["9 000 ₽ — будни","14 000 ₽ — выходной"]},{id:"modal5",badge:"Новинка",title:"Корпоративный",sub:"До 30 чел / 4 ч",prices:["60 000 ₽ — будни","75 000 ₽ — выходной"]}];
+        const certs=[{id:"cert1",icon:"fa-gem",price:"10 000 ₽",name:"Первое знакомство"},{id:"cert2",icon:"fa-crown",price:"25 000 ₽",name:"Золотой билет"},{id:"cert3",icon:"fa-trophy",price:"50 000 ₽",name:"Корпоративная легенда"},{id:"cert4",icon:"fa-star",price:"100 000 ₽",name:"Абсолютный VR"}];
+        const games=["Beat Saber","Half-Life: Alyx","Superhot VR","Pistol Whip","Resident Evil 4 VR","Google Earth VR","Tilt Brush","Walking Dead: S&S","No Man's Sky VR","Moss","Warplanes: WW1","The Wizards","Eleven Table Tennis","Richie's Plank","Skyrim VR"];
+        const faqs=[["С какого возраста можно?","Рекомендовано от 6 лет. Для малышей от 4 лет — игры под присмотром."],["Какая площадь нужна?","2×2 м на пару очков. Для 10 очков — 20–25 м²."],["Нужно электричество?","Да, 220V. На улице — наш генератор (включён)."],["Новичок в VR?","Инструктаж 2 минуты. 90% гостей — новички!"],["Работаете за МКАД?","Да, по Москве и МО. До 30 км включено."],["Можно перенести дату?","Да, без штрафов за 48 часов."]];
+
+        function render(){
+            document.getElementById("stepsGrid").innerHTML=steps.map(s=>`<div class="step-card"><div class="step-num">${s[0]}</div><div class="step-icon"><i class="fas ${s[1]}"></i></div><h4>${s[2]}</h4><p>${s[3]}</p></div>`).join("");
+            document.getElementById("benefitsGrid").innerHTML=benefits.map(b=>`<div class="why-best-item"><i class="fas ${b[0]}"></i><span>${b[1]}</span></div>`).join("");
+            document.getElementById("whyGrid").innerHTML=whyCards.map(w=>`<div class="why-card"><img src="${w.img}" alt="${w.title}"><h3>${w.title}</h3><p>${w.text}</p></div>`).join("");
+            document.getElementById("servicesGrid").innerHTML=services.map(s=>`<div class="service-card" onclick="openFormModal('${s.title}')">${s.badge?`<div class="card-badge">${s.badge}</div>`:""}<h4>«${s.title}»</h4><p>${s.sub}</p><div class="price-block">${s.prices.map(p=>`<span>${p}</span>`).join("")}</div></div>`).join("");
+            document.getElementById("certGrid").innerHTML=certs.map(c=>`<div class="cert-card" onclick="openFormModal('Сертификат: ${c.name}')"><span class="cert-icon"><i class="fas ${c.icon}"></i></span><span class="cert-price">${c.price}</span><span>«${c.name}»</span></div>`).join("");
+            document.getElementById("gamesGrid").innerHTML=games.map(g=>`<div class="game-tag">${g}</div>`).join("");
+            document.getElementById("faqList").innerHTML=faqs.map((f,i)=>`<div class="faq-item"><button class="faq-question" onclick="this.nextElementSibling.classList.toggle('show')"><span>${f[0]}</span><i class="fas fa-chevron-down"></i></button><div class="faq-answer"><p>${f[1]}</p></div></div>`).join("");
+        }
+
+        function openFormModal(serviceName){
+            const overlay=document.createElement("div");
+            overlay.className="modal-overlay show";
+            overlay.innerHTML=`<div class="modal-content"><button class="modal-close" onclick="this.closest('.modal-overlay').remove()">&times;</button><h3>${serviceName}</h3><p style="margin-bottom:12px;color:var(--muted)">Оставьте заявку — я свяжусь с вами в ближайшее время</p><label>Ваше имя</label><input type="text" id="formName" placeholder="Иван Иванов"><label>Номер телефона</label><input type="tel" id="formPhone" placeholder="+7 (999) 123-45-67"><button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="submitForm('${serviceName}')">Отправить заявку</button><p style="margin-top:12px;font-size:0.8rem;color:var(--muted)">Или позвоните: <a href="tel:${PHONE}" style="color:var(--accent)">${PHONE}</a></p></div>`;
+            document.body.appendChild(overlay);
+            overlay.addEventListener("click",function(e){if(e.target===overlay)overlay.remove()});
+        }
+
+        function submitForm(serviceName){
+            const name=document.getElementById("formName").value.trim();
+            const phone=document.getElementById("formPhone").value.trim();
+            if(!name||!phone){alert("Пожалуйста, заполните имя и телефон");return}
+            const msg=`Новая заявка inVRsion!%0AУслуга: ${serviceName}%0AИмя: ${name}%0AТелефон: ${phone}`;
+            window.open(`https://vk.com/petyakarpov?text=${msg}`,"_blank");
+            document.querySelector(".modal-overlay.show")?.remove();
+            alert("Спасибо! Я свяжусь с вами в ближайшее время.");
+        }
+
+        render();
+
+        // Калькулятор
+        const pInp=document.getElementById("people"),hInp=document.getElementById("hours"),sInp=document.getElementById("stations"),dSel=document.getElementById("dayType"),totalEl=document.getElementById("totalPrice");
+        function calc(){const p=parseInt(pInp.value)||1,h=parseInt(hInp.value)||1,s=parseInt(sInp.value)||1;const r=dSel.value==="weekday"?4500:6000;let t=h*s*r;const cov=s*2;if(p>cov)t*=1+Math.ceil((p-cov)/4)*0.1;totalEl.textContent=Math.round(t).toLocaleString("ru-RU")}
+        [pInp,hInp,sInp].forEach(e=>e.addEventListener("input",calc));dSel.addEventListener("change",calc);calc();
+
+        // Таймер
+        function timer(){const n=new Date(),dow=n.getDay(),dsu=dow===0?0:7-dow,eow=new Date(n);eow.setDate(n.getDate()+dsu);eow.setHours(23,59,59,0);const diff=eow-n;if(diff<=0){document.getElementById("timer").innerHTML="Акция завершена";return}const d=Math.floor(diff/864e5),h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4),s=Math.floor((diff%6e4)/1e3);document.getElementById("timer").innerHTML=`${String(d).padStart(2,"0")}д ${String(h).padStart(2,"0")}ч ${String(m).padStart(2,"0")}м ${String(s).padStart(2,"0")}с`}
+        setInterval(timer,1000);timer();
+
+        // Колесо
+        const prizes=["Скидка 5%","Скидка 10%","Скидка 15%","Скидка 20%","Футболка inVRsion","Бесплатный час","2 часа в подарок","VR-очки на день","Кофе-брейк","Подарочный сертификат","VIP-место","Золотой билет","Фирменный мерч","Бесплатная доставка","+1 игра","Сюрприз"];
+        const colors=["#ff6b6b","#feca57","#48dbfb","#ff9ff3","#54a0ff","#a259ff","#5f27cd","#ff6348","#00d2d3","#f368e0","#ff9f43","#c8d6e5","#8395a7","#e77f67","#3dc1d3","#cf6a87"];
+        const canvas=document.getElementById("wheelCanvas"),ctx=canvas.getContext("2d");
+        let spinning=false,curAngle=0;const seg=prizes.length,ang=2*Math.PI/seg;
+        function draw(rot=0){ctx.clearRect(0,0,360,360);for(let i=0;i<seg;i++){const s=i*ang,e=s+ang;ctx.beginPath();ctx.moveTo(180,180);ctx.arc(180,180,160,s+rot,e+rot);ctx.fillStyle=colors[i];ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();ctx.save();ctx.translate(180,180);ctx.rotate(s+ang/2+rot);ctx.textAlign="center";ctx.fillStyle="#fff";ctx.font="bold 10px Segoe UI";ctx.fillText(prizes[i],120,4);ctx.restore()}ctx.beginPath();ctx.arc(180,180,32,0,2*Math.PI);ctx.fillStyle="#fff";ctx.fill();ctx.fillStyle="#a259ff";ctx.font="bold 17px Segoe UI";ctx.textAlign="center";ctx.fillText("VR",180,186)}
+        function spinWheel(){if(spinning)return;spinning=true;document.getElementById("wheelResult").textContent="Крутим...";document.getElementById("wheelContact").classList.remove("show");const spinDeg=Math.random()*3600+720;const start=performance.now();function anim(ts){const p=Math.min((ts-start)/4000,1);const ease=1-Math.pow(1-p,3);draw((curAngle+spinDeg*ease)*Math.PI/180);if(p<1)requestAnimationFrame(anim);else{curAngle=(curAngle+spinDeg)%360;const idx=Math.floor(seg-(curAngle%360)/(360/seg))%seg;document.getElementById("wheelResult").textContent="Ваш приз: "+prizes[idx];document.getElementById("wheelContact").classList.add("show");spinning=false}}requestAnimationFrame(anim)}
+        draw();document.getElementById("spinBtn").addEventListener("click",spinWheel);
+    </script>
+</body>
+</html>
