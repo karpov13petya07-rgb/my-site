@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Выездные VR-мероприятия inVRsion: дни рождения, корпоративы, тимбилдинги, детские праздники в Москве и МО." />
+  <title>inVRsion — выездная VR | Москва и МО</title>
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #0a0820;
+      --bg-2: #1a1040;
+      --accent: #a259ff;
+      --accent-2: #8b3bd4;
+      --gold: #ffd700;
+      --text: #ffffff;
+      --muted: #c0c0e0;
+      --muted-2: #b0b0d0;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-strong: rgba(10, 8, 32, 0.72);
+      --border: rgba(162, 89, 255, 0.28);
+      --radius: 20px;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+
+    .parallax-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(162, 89, 255, 0.28), transparent 34%),
+        radial-gradient(circle at 80% 20%, rgba(72, 219, 251, 0.16), transparent 30%),
+        linear-gradient(135deg, #0f0c29, #302b63 50%, #24243e);
+    }
+
+    .container {
+      width: min(1100px, calc(100% - 40px));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    section { padding: 64px 0; }
+    .bg-glass {
+      background: var(--glass-strong);
+      backdrop-filter: blur(8px);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.7rem, 4vw, 2.25rem);
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      position: relative;
+    }
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 3px;
+      background: var(--accent);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    .section-subtitle {
+      max-width: 720px;
+      margin: 0 auto 34px;
+      text-align: center;
+      color: var(--muted-2);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 0;
+      background: rgba(10, 8, 32, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .logo i { color: var(--accent); font-size: 1.8rem; }
+    .header-contacts, .hero-buttons, .social-links, .wheel-contact-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .pill-link, .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 750;
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    }
+    .pill-link { padding: 8px 16px; font-size: 0.92rem; }
+    .tg-link { background: rgba(0, 136, 204, 0.3); }
+    .tg-link:hover { background: #0088cc; }
+    .phone-link { background: rgba(162, 89, 255, 0.2); }
+    .phone-link:hover { background: var(--accent); }.btn {
+      border: 0;
+      cursor: pointer;
+      padding: 14px 30px;
+      font-size: 1rem;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-2); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(162, 89, 255, 0.35); }
+    .btn-outline { border: 2px solid #fff; background: transparent; color: #fff; }
+    .btn-outline:hover { background: #fff; color: var(--bg); }
+
+    .hero {
+      padding: 86px 0 64px;
+      text-align: center;
+      background: rgba(10, 8, 32, 0.5);
+      backdrop-filter: blur(4px);
+    }
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 22px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: rgba(162, 89, 255, 0.26);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+    }
+    .hero-title {
+      font-size: clamp(2.15rem, 8vw, 3.4rem);
+      line-height: 1.05;
+      font-weight: 950;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero-subtitle {
+      max-width: 760px;
+      margin: 0 auto 22px;
+      color: var(--muted);
+      font-size: clamp(1rem, 3vw, 1.22rem);
+    }
+    .hero-locations {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .hero-locations span, .game-tag {
+      border: 1px solid rgba(162, 89, 255, 0.38);
+      background: rgba(255, 255, 255, 0.09);
+      color: #e0d0ff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+    .hero-locations i { margin-right: 6px; color: var(--accent); }
+
+    .discounts-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .discount-block {
+      min-width: min(320px, 100%);
+      padding: 18px 24px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(7px);
+      text-align: center;
+    }
+    .birthday-block { border: 1px solid var(--gold); }
+    .discount-badge { color: var(--gold); font-weight: 800; font-size: 1.05rem; }
+    .timer { margin-top: 7px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 1.35rem; font-weight: 800; }
+
+    .grid { display: grid; gap: 22px; }
+    .video-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .steps-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .why-best-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; }
+    .why-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+    .services-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+    .card, .video-card, .step-card, .why-card, .service-card, .calculator, .wheel-container, .cert-card, .faq-item {
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .video-card { overflow: hidden; }
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      overflow: hidden;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .video-frame video, .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+      object-fit: cover;
+    }
+    .video-card p { padding: 13px; text-align: center; font-weight: 700; color: var(--muted); }
+
+    .step-card { padding: 25px 15px; text-align: center; }
+    .step-num { margin-bottom: 8px; color: var(--accent); font-size: 0.75rem; font-weight: 900; }
+    .step-icon { margin-bottom: 10px; color: var(--accent); font-size: 2rem; }
+    .step-card h4 { margin-bottom: 5px; font-size: 1rem; }
+    .step-card p { color: var(--muted-2); font-size: 0.85rem; }.why-best-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: rgba(162, 89, 255, 0.1);
+      font-size: 0.93rem;
+    }
+    .why-best-item i { color: var(--accent); font-size: 1.25rem; }
+
+    .why-card { overflow: hidden; text-align: center; }
+    .why-card .img-placeholder {
+      height: 180px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #302b63, var(--accent));
+      font-size: 3rem;
+    }
+    .why-card h3 { padding: 16px 12px 5px; color: var(--accent); font-size: 1.1rem; }
+    .why-card p { padding: 0 16px 20px; color: var(--muted); font-size: 0.92rem; }
+
+    .service-card, .cert-card {
+      position: relative;
+      padding: 25px 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .service-card:hover, .cert-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      background: rgba(162, 89, 255, 0.18);
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 900;
+    }
+    .service-card h4 { margin-bottom: 6px; font-size: 1.16rem; }
+    .service-card p { margin-bottom: 12px; color: var(--muted-2); font-size: 0.86rem; }
+    .price-block { display: flex; flex-direction: column; gap: 4px; }
+    .price-block span { font-size: 1.08rem; font-weight: 850; }
+    .price-block small { color: #999; font-size: 0.72rem; font-weight: 500; }
+
+    .calculator {
+      max-width: 520px;
+      margin-inline: auto;
+      padding: 30px;
+    }
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin: 13px 0;
+    }
+    .calc-row input, .calc-row select {
+      width: 110px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--accent);
+      background: #1a1733;
+      color: #fff;
+      text-align: center;
+    }
+    .calc-total { margin: 22px 0; text-align: center; color: var(--gold); font-size: 2rem; font-weight: 950; }
+    .calc-note { color: #999; text-align: center; font-size: 0.86rem; }
+    .phone-big { color: var(--accent); text-decoration: none; font-weight: 800; }
+
+    .wheel-container {
+      display: inline-block;
+      padding: 36px;
+      backdrop-filter: blur(10px);
+    }
+    .wheel-container canvas {
+      display: block;
+      width: min(380px, calc(100vw - 90px));
+      height: auto;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(162, 89, 255, 0.5);
+    }
+    .wheel-result { min-height: 30px; margin-top: 20px; color: var(--gold); font-size: 1.35rem; font-weight: 900; }
+    .wheel-contact { display: none; margin-top: 15px; padding: 15px; border-radius: 15px; background: rgba(162, 89, 255, 0.15); text-align: center; }
+    .wheel-contact.show { display: block; }
+
+    .cert-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .cert-card { min-width: 160px; }
+    .cert-icon { display: block; margin-bottom: 10px; color: var(--gold); font-size: 2rem; }
+    .cert-price { display: block; color: var(--accent); font-size: 1.75rem; font-weight: 950; }
+    .games-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+
+    .faq-item { overflow: hidden; margin-bottom: 10px; box-shadow: none; }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 22px;
+      border: 0;
+      background: transparent;
+      color: #fff;cursor: pointer;
+      text-align: left;
+      font-weight: 750;
+    }
+    .faq-question i { color: var(--accent); transition: transform 0.2s ease; }
+    .faq-question[aria-expanded="true"] i { transform: rotate(180deg); }
+    .faq-answer { display: none; padding: 0 22px 18px; color: #d0d0e0; }
+    .faq-answer.show { display: block; }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+    .social-links { margin-top: 15px; }
+    .social-icon { padding: 12px 22px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); text-decoration: none; font-weight: 750; }
+    .telegram:hover { background: #0088cc; }
+    .phone:hover { background: var(--accent); }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.84);
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-content {
+      width: min(500px, 100%);
+      position: relative;
+      padding: 38px 28px;
+      border-radius: var(--radius);
+      border: 2px solid var(--accent);
+      background: var(--bg-2);
+      text-align: center;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .modal-content h3 { margin-bottom: 15px; color: var(--accent); }
+    .modal-content p { margin-bottom: 10px; color: #d0d0e0; }
+    .modal-prices { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+    .modal-prices span { padding: 10px 15px; border-radius: 10px; background: rgba(162, 89, 255, 0.2); font-weight: 750; }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, 1100px); }
+      section { padding: 48px 0; }
+      .nav-container { justify-content: center; text-align: center; }
+      .header-contacts { width: 100%; }
+      .pill-link { flex: 1 1 140px; }
+      .discount-block { min-width: 100%; }
+      .calculator { padding: 22px; }
+      .calc-row { align-items: stretch; flex-direction: column; }
+      .calc-row input, .calc-row select { width: 100%; }
+      .modal-prices { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="parallax-bg" aria-hidden="true"></div>
+
+  <header class="header">
+    <div class="container nav-container">
+      <div class="logo"><i class="fas fa-vr-cardboard"></i> inVRsion</div>
+      <div class="header-contacts">
+        <a href="https://t.me/inVRsion_bot" target="_blank" rel="noopener" class="pill-link tg-link"><i class="fab fa-telegram-plane"></i> Telegram</a>
+        <a href="tel:89680323290" class="pill-link phone-link"><i class="fas fa-phone-alt"></i> 8 968 032 32 90</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">BIRTHDAYS & CORPORATE PARTY</div>
+        <h1 class="hero-title">Выездные VR-мероприятия</h1>
+        <p class="hero-subtitle">Превращаем дни рождения и корпоративы в незабываемое путешествие в виртуальную реальность. Мы переносим магию VR прямо к вам.</p>
+
+        <div class="hero-locations">
+          <span><i class="fas fa-building"></i>Корпоративы</span>
+          <span><i class="fas fa-users"></i>Тимбилдинги</span>
+          <span><i class="fas fa-tree"></i>Загородные базы</span>
+          <span><i class="fas fa-campground"></i>Детские лагеря</span>
+          <span><i class="fas fa-hotel"></i>Парк-отели</span>
+          <span><i class="fas fa-home"></i>Загородные дома</span>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#services" class="btn btn-primary">Хочу в игру</a>
+          <a href="#video-section" class="btn btn-outline">Посмотреть видео</a>
+        </div><div class="discounts-row">
+          <div class="discount-block">
+            <span class="discount-badge">Скидка 10% до конца недели!</span>
+            <div class="timer" id="timer">Загружаем...</div>
+          </div>
+          <div class="discount-block birthday-block">
+            <span class="discount-badge"><i class="fas fa-birthday-cake"></i> Имениннику скидка 20%!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="video-section">
+      <div class="container">
+        <h2 class="section-title">Как это выглядит</h2>
+        <p class="section-subtitle">Посмотрите короткие видео с наших мероприятий</p>
+
+        <div class="grid video-grid">
+          <!-- Вариант 1: прямой видеофайл с вашего хостинга -->
+          <article class="video-card">
+            <div class="video-frame">
+              <video controls preload="metadata" poster="images/video-1-poster.jpg">
+                <source src="videos/vr-timbuilding.mp4" type="video/mp4" />
+                Ваш браузер не поддерживает видео. <a href="videos/vr-timbuilding.mp4">Скачать видео</a>
+              </video>
+            </div>
+            <p>VR-тимбилдинг</p>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <video controls preload="metadata" poster="images/video-2-poster.jpg">
+                <source src="videos/team-vr.mp4" type="video/mp4" />
+                Ваш браузер не поддерживает видео. <a href="videos/team-vr.mp4">Скачать видео</a>
+              </video>
+            </div>
+            <p>Командный VR-тимбилдинг</p>
+          </article>
+
+          <!-- Вариант 2: iframe-встраивание с видеоплатформы, если платформа даёт embed-код -->
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Детский VR-праздник" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <p>Детский VR-праздник</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-glass" id="steps">
+      <div class="container">
+        <h2 class="section-title">Как проходит мероприятие?</h2>
+        <div class="grid steps-grid" id="stepsGrid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="section-title">Почему мы лучшее решение?</h2>
+        <div class="grid why-best-grid" id="benefitsGrid"></div>
+      </div>
+    </section>
+
+    <section class="bg-glass">
+      <div class="container">
+        <h2 class="section-title">Почему выездные VR-мероприятия — лучший выбор?</h2>
+        <div class="grid why-grid">
+          <article class="why-card"><div class="img-placeholder"><i class="fas fa-map-pin"></i></div><h3>Абсолютная свобода</h3><p>Проводим мероприятия в любом месте: дом, офис, лофт, парк, открытая площадка.</p></article>
+          <article class="why-card"><div class="img-placeholder"><i class="fas fa-tools"></i></div><h3>Минимум забот</h3><p>Вся техническая организация — на нас.</p></article>
+          <article class="why-card"><div class="img-placeholder"><i class="fas fa-child"></i></div><h3>Для всех возрастов</h3><p>Развлечения для детей от 4 лет и взрослых.</p></article>
+          <article class="why-card"><div class="img-placeholder"><i class="fas fa-star"></i></div><h3>Эффектный стиль</h3><p>VR-зоны с современным оформлением.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title">Тарифы</h2>
+        <p class="section-subtitle">Имениннику скидка 20% на любой тариф! Нажмите, чтобы узнать подробности.</p>
+        <div class="grid services-grid" id="servicesGrid"></div>
+      </div>
+    </section><section class="bg-glass">
+      <div class="container">
+        <h2 class="section-title">Рассчитать стоимость</h2>
+        <div class="calculator">
+          <div class="calc-row"><label for="people">Количество человек</label><input type="number" id="people" value="4" min="1" max="50" /></div>
+          <div class="calc-row"><label for="hours">Часы</label><input type="number" id="hours" value="2" min="1" max="8" /></div>
+          <div class="calc-row"><label for="stations">VR-очки</label><input type="number" id="stations" value="2" min="1" max="10" /></div>
+          <div class="calc-row"><label for="dayType">Тип дня</label><select id="dayType"><option value="weekday">Будни</option><option value="weekend">Выходной / праздник</option></select></div>
+          <div class="calc-total">Итого: <span id="totalPrice">0</span> ₽</div>
+          <p class="calc-note">*Примерная стоимость. Точный расчёт зависит от локации, формата и длительности.</p>
+        </div>
+        <p style="text-align:center;margin-top:20px;">Точный расчёт: <a href="https://t.me/inVRsion_bot" target="_blank" rel="noopener" class="phone-big"><i class="fab fa-telegram-plane"></i> @inVRsion_bot</a></p>
+      </div>
+    </section>
+
+    <section style="text-align:center;">
+      <div class="container">
+        <h2 class="section-title">Колесо фортуны</h2>
+        <p class="section-subtitle">Испытай удачу и получи дополнительный приз!</p>
+        <div class="wheel-container">
+          <canvas id="wheelCanvas" width="380" height="380"></canvas>
+          <button class="btn btn-primary" id="spinBtn" type="button">🎰 Крутить барабан</button>
+          <p class="wheel-result" id="wheelResult"></p>
+          <div class="wheel-contact" id="wheelContact">
+            <p><strong>Свяжитесь с нами, чтобы забрать приз и подобрать идеальный пакет:</strong></p>
+            <div class="wheel-contact-buttons">
+              <a href="tel:89680323290" class="btn btn-primary"><i class="fas fa-phone-alt"></i> 8 968 032 32 90</a>
+              <a href="https://t.me/inVRsion_bot" target="_blank" rel="noopener" class="btn btn-outline"><i class="fab fa-telegram-plane"></i> @inVRsion_bot</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-glass">
+      <div class="container">
+        <h2 class="section-title">Подарочные сертификаты</h2>
+        <div class="cert-grid" id="certGrid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2 class="section-title">Топ-15 игр</h2>
+        <div class="games-grid" id="gamesGrid"></div>
+      </div>
+    </section>
+
+    <section class="bg-glass">
+      <div class="container">
+        <h2 class="section-title">Часто задаваемые вопросы</h2>
+        <div id="faqList"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 inVRsion. Выездная VR. Москва и МО.</p>
+      <div class="social-links">
+        <a href="https://t.me/inVRsion_bot" target="_blank" rel="noopener" class="social-icon telegram"><i class="fab fa-telegram-plane"></i> @inVRsion_bot</a>
+        <a href="tel:89680323290" class="social-icon phone"><i class="fas fa-phone-alt"></i> Позвонить</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modalRoot"></div>
+
+  <script>
+    const tgLink = "https://t.me/inVRsion_bot";
+
+    const steps = [
+      ["01", "fa-paper-plane", "Заявка", "Оставляете заявку"],
+      ["02", "fa-comments", "Согласование", "Согласовываем детали"],
+      ["03", "fa-truck", "Выезд", "Приезжаем на локацию"],
+      ["04", "fa-tools", "Установка", "Настраиваем VR-зону"],
+      ["05", "fa-gamepad", "Запуск игр", "Инструктируем и запускаем"],
+      ["06", "fa-camera", "Завершение", "Фиксируем эмоции"]
+    ];
+
+    const benefits = [["fa-rocket", "Прорывной формат: мобильные VR-клубы"],
+      ["fa-truck-moving", "Мобильные VR-зоны в любом месте"],
+      ["fa-gem", "Премиальный сервис в любую погоду"],
+      ["fa-gamepad", "Игры на любой вкус"],
+      ["fa-paint-brush", "Брендированные VR-зоны"],
+      ["fa-graduation-cap", "Образовательные программы"],
+      ["fa-smile", "Яркие эмоции и инновации"]
+    ];
+
+    const services = [
+      { id: "modal1", badge: "Хит", title: "«Минимальный»", subtitle: "До 6 игроков / 1.5 ч", prices: ["16 900 ₽ — будни", "23 900 ₽ — выходной"], text: "Идеально для небольшой компании или семейного праздника. 2 VR-очка, инструктор, доставка." },
+      { id: "modal2", title: "«Командный»", subtitle: "До 12 игроков / 3 ч", prices: ["35 000 ₽ — будни", "45 000 ₽ — выходной"], text: "Тимбилдинг до 12 человек. 6 очков, 2 инструктора, фотоотчёт." },
+      { id: "modal3", title: "«Детская галактика»", subtitle: "До 8 детей / 2 ч", prices: ["13 900 ₽ — будни", "19 900 ₽ — выходной"], text: "Праздник для детей с аниматором. 2 очка, дипломы, реквизит." },
+      { id: "modal4", title: "«Кинотеатр 360°»", subtitle: "До 10 чел / 1 ч", prices: ["9 000 ₽ — будни", "14 000 ₽ — выходной"], text: "10 очков, синхронный запуск, библиотека фильмов 360°." },
+      { id: "modal5", badge: "Новинка", title: "«Корпоративный»", subtitle: "До 30 чел / 4 ч", prices: ["60 000 ₽ — будни", "75 000 ₽ — выходной"], text: "Тимбилдинги, базы отдыха, отели, лагеря. До 30 человек. 10 очков, 3 инструктора." }
+    ];
+
+    const certs = [
+      { id: "cert1", icon: "fa-gem", price: "10 000 ₽", title: "«Первое знакомство»", text: "1 час VR с инструктором." },
+      { id: "cert2", icon: "fa-crown", price: "25 000 ₽", title: "«Золотой билет»", text: "VR-вечеринка до 6 человек." },
+      { id: "cert3", icon: "fa-trophy", price: "50 000 ₽", title: "«Корпоративная легенда»", text: "Тимбилдинг до 20 человек." },
+      { id: "cert4", icon: "fa-star", price: "100 000 ₽", title: "«Абсолютный VR»", text: "Премиум без ограничений." }
+    ];
+
+    const games = ["Beat Saber", "Half-Life: Alyx", "Superhot VR", "Pistol Whip", "Resident Evil 4 VR", "Google Earth VR", "Tilt Brush", "The Walking Dead: S&S", "No Man's Sky VR", "Moss", "Warplanes: WW1", "The Wizards", "Eleven Table Tennis", "Richie's Plank", "Skyrim VR"];
+
+    const faqs = [
+      ["С какого возраста можно детям?", "Рекомендованный возраст от 6 лет. Для малышей от 4 лет — специальные игры под присмотром инструктора и родителей."],
+      ["Какая площадь нужна для VR-зоны?", "Для одной пары очков — 2×2 метра. Для 10 очков — около 20–25 м²."],
+      ["Нужно ли электричество?", "Да, 220V. На улице можем обсудить генератор заранее."],
+      ["Гость новичок в VR — что делать?", "Инструктаж занимает пару минут. Большинство гостей пробуют VR впервые."],
+      ["Работаете ли вы за МКАД?", "Да, выезжаем по Москве и Московской области. Условия зависят от расстояния."],
+      ["Можно перенести дату?", "Да, условия переноса лучше согласовать при бронировании."],
+    ];
+
+    const prizes = ["Скидка 5%", "Скидка 10%", "Скидка 15%", "Скидка 20%", "Футболка inVRsion", "Бесплатный час", "2 часа в подарок", "VR-очки на день", "Кофе-брейк", "Подарочный сертификат", "VIP-место", "Золотой билет", "Фирменный мерч", "Бесплатная доставка", "+1 игра", "Сюрприз от команды"];
+    const colors = ["#ff6b6b", "#feca57", "#48dbfb", "#ff9ff3", "#54a0ff", "#a259ff", "#5f27cd", "#ff6348", "#00d2d3", "#f368e0", "#ff9f43", "#c8d6e5", "#8395a7", "#e77f67", "#3dc1d3", "#cf6a87"];
+
+    const byId = (id) => document.getElementById(id);
+    const formatRub = (value) => Math.round(value).toLocaleString("ru-RU");
+
+    function renderStaticContent() {
+      byId("stepsGrid").innerHTML = steps.map(([num, icon, title, text]) => 
+        <article class="step-card"><div class="step-num">${num}</div><div class="step-icon"><i class="fas ${icon}"></i></div><h4>${title}</h4><p>${text}</p></article>
+      ).join("");byId("benefitsGrid").innerHTML = benefits.map(([icon, text]) => 
+        <div class="why-best-item"><i class="fas ${icon}"></i><span>${text}</span></div>
+      ).join("");
+
+      byId("servicesGrid").innerHTML = services.map(item => 
+        <article class="service-card" role="button" tabindex="0" data-modal="${item.id}">
+          ${item.badge ? <div class="card-badge">${item.badge}</div> : ""}
+          <h4>${item.title}</h4><p>${item.subtitle}</p>
+          <div class="price-block">${item.prices.map(price => <span>${price}</span>).join("")}</div>
+        </article>
+      ).join("");
+
+      byId("certGrid").innerHTML = certs.map(item => 
+        <article class="cert-card" role="button" tabindex="0" data-modal="${item.id}">
+          <span class="cert-icon"><i class="fas ${item.icon}"></i></span><span class="cert-price">${item.price}</span><span>${item.title}</span>
+        </article>
+      ).join("");
+
+      byId("gamesGrid").innerHTML = games.map(game => <div class="game-tag">${game}</div>).join("");
+
+      byId("faqList").innerHTML = faqs.map(([question, answer], index) => 
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-${index}">
+            <span>${question}</span><i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer" id="faq-${index}"><p>${answer}</p></div>
+        </div>
+      ).join("");
+
+      const modalItems = [
+        ...services.map(item => ({ ...item, cta: "Забронировать" })),
+        ...certs.map(item => ({ ...item, prices: [${item.price}], cta: "Купить" }))
+      ];
+
+      byId("modalRoot").innerHTML = modalItems.map(item => 
+        <div class="modal-overlay" id="${item.id}">
+          <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="${item.id}-title">
+            <button class="modal-close" type="button" data-close="${item.id}" aria-label="Закрыть">&times;</button>
+            <h3 id="${item.id}-title">${item.title}</h3>
+            <p>${item.text}</p>
+            <div class="modal-prices">${item.prices.map(price => <span>${price}</span>).join("")}</div>
+            <a href="${tgLink}" target="_blank" rel="noopener" class="btn btn-primary">${item.cta}</a>
+          </div>
+        </div>
+      ).join("");
+    }
+
+    function initModals() {
+      document.addEventListener("click", (event) => {
+        const trigger = event.target.closest("[data-modal]");
+        const closeBtn = event.target.closest("[data-close]");
+
+        if (trigger) openModal(trigger.dataset.modal);
+        if (closeBtn) closeModal(closeBtn.dataset.close);
+        if (event.target.classList.contains("modal-overlay")) closeModal(event.target.id);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") document.querySelectorAll(".modal-overlay.show").forEach(modal => closeModal(modal.id));
+        if ((event.key === "Enter" || event.key === " ") && event.target.matches("[data-modal]")) {
+          event.preventDefault();
+          openModal(event.target.dataset.modal);
+        }
+      });
+    }
+
+    function openModal(id) {
+      byId(id)?.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(id) {
+      byId(id)?.classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    function initFaq() {
+      byId("faqList").addEventListener("click", (event) => {
+        const question = event.target.closest(".faq-question");
+        if (!question) return;
+        const answer = question.nextElementSibling;
+        const isOpen = answer.classList.toggle("show");
+        question.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    function initCalculator() {
+      const people = byId("people");
+      const hours = byId("hours");
+      const stations = byId("stations");
+      const dayType = byId("dayType");
+      const totalPrice = byId("totalPrice");function calc() {
+        const p = Math.max(1, Number(people.value) || 1);
+        const h = Math.max(1, Number(hours.value) || 1);
+        const s = Math.max(1, Number(stations.value) || 1);
+        const rate = dayType.value === "weekday" ? 4500 : 6000;
+        const capacity = s * 2;
+        const extraMultiplier = p > capacity ? 1 + Math.ceil((p - capacity) / 4) * 0.1 : 1;
+        totalPrice.textContent = formatRub(h * s * rate * extraMultiplier);
+      }
+
+      [people, hours, stations, dayType].forEach(el => el.addEventListener("input", calc));
+      dayType.addEventListener("change", calc);
+      calc();
+    }
+
+    function initTimer() {
+      const timerEl = byId("timer");
+      function tick() {
+        const now = new Date();
+        const day = now.getDay();
+        const daysToSunday = day === 0 ? 0 : 7 - day;
+        const end = new Date(now);
+        end.setDate(now.getDate() + daysToSunday);
+        end.setHours(23, 59, 59, 0);
+        const diff = end - now;
+
+        if (diff <= 0) {
+          timerEl.textContent = "Акция завершена";
+          return;
+        }
+
+        const d = Math.floor(diff / 864e5);
+        const h = Math.floor((diff % 864e5) / 36e5);
+        const m = Math.floor((diff % 36e5) / 6e4);
+        const s = Math.floor((diff % 6e4) / 1e3);
+        timerEl.textContent = ${String(d).padStart(2, "0")}д ${String(h).padStart(2, "0")}ч ${String(m).padStart(2, "0")}м ${String(s).padStart(2, "0")}с;
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    function initWheel() {
+      const canvas = byId("wheelCanvas");
+      const ctx = canvas.getContext("2d");
+      const result = byId("wheelResult");
+      const contact = byId("wheelContact");
+      const spinBtn = byId("spinBtn");
+      const size = 380;
+      const center = size / 2;
+      const radius = 170;
+      const segmentCount = prizes.length;
+      const segmentAngle = (Math.PI * 2) / segmentCount;
+      let spinning = false;
+      let currentAngle = 0;
+
+      function draw(rotation = 0) {
+        ctx.clearRect(0, 0, size, size);
+        ctx.beginPath();
+        ctx.arc(center, center, radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#1a1040";
+        ctx.fill();
+
+        prizes.forEach((prize, index) => {
+          const start = index * segmentAngle;
+          const end = start + segmentAngle;
+          ctx.beginPath();
+          ctx.moveTo(center, center);
+          ctx.arc(center, center, radius, start + rotation, end + rotation);
+          ctx.fillStyle = colors[index];
+          ctx.fill();
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.save();
+          ctx.translate(center, center);
+          ctx.rotate(start + segmentAngle / 2 + rotation);
+          ctx.textAlign = "center";
+          ctx.fillStyle = "#fff";
+          ctx.font = "bold 10px Segoe UI";
+          ctx.fillText(prize, 120, 4);
+          ctx.restore();
+        });
+
+        ctx.beginPath();
+        ctx.arc(center, center, 35, 0, Math.PI * 2);
+        ctx.fillStyle = "#fff";
+        ctx.fill();
+        ctx.fillStyle = "#a259ff";
+        ctx.font = "bold 18px Segoe UI";
+        ctx.textAlign = "center";
+        ctx.fillText("🎰", center, center + 7);
+      }
+
+      function spin() {
+        if (spinning) return;
+        spinning = true;
+        result.textContent = "Крутим...";
+        contact.classList.remove("show");
+
+        const spinDegrees = Math.random() * 3600 + 720;
+        const start = performance.now();
+
+        function animate(timestamp) {
+          const progress = Math.min((timestamp - start) / 4000, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          draw((currentAngle + spinDegrees * eased) * Math.PI / 180);
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);} else {
+            currentAngle = (currentAngle + spinDegrees) % 360;
+            const index = Math.floor(segmentCount - (currentAngle % 360) / (360 / segmentCount)) % segmentCount;
+            result.textContent = Ваш приз: ${prizes[index]};
+            contact.classList.add("show");
+            spinning = false;
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      draw();
+      spinBtn.addEventListener("click", spin);
+    }
+
+    renderStaticContent();
+    initModals();
+    initFaq();
+    initCalculator();
+    initTimer();
+    initWheel();
+  </script>
+</body>
+</html>
